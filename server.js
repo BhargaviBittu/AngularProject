@@ -89,6 +89,16 @@ router.get('/getQuestion', function(req,res){
   }
   });
 });
+router.get('/getAnswers', function(req,res){
+  let query = "SELECT * FROM answer_list";
+  connection.query(query, function(err, result){ 
+    if(err){
+      res.json({success:false, message:"please post again"})
+    }else{
+      res.json({success:true, message: 'question posted', AnswerList: result})
+  }
+  });
+});
 
 router.post('/getMyQuestion', function(req,res){
   let query = "SELECT * FROM user_questionaire where FirstName = '"+req.body.FirstName+"'";
@@ -102,16 +112,14 @@ router.post('/getMyQuestion', function(req,res){
 });
 
 router.post('/postAnswer', function(req,res){
-  var myDate = new Date();
-  let query = "UPDATE user_questionaire SET Answer = '"+req.body.Answer+"' WHERE ID = '"+req.body.ID+"'"
-
-  connection.query(query, function(err, result){
-    if(err){
-      res.json({success:false, message:"please post again"})
-    }else{
-      res.json({success:true, message: 'Answer posted'})
-  }
-  });
+  let query = "INSERT INTO answer_list (FirstName, ID, Question, Answer) VALUES ('"+req.body.FirstName+"', '"+req.body.ID+"','"+req.body.Question+"' ,'"+req.body.Answer+"');"
+connection.query(query, function(err, result){
+  if(err){
+    res.json({success:false, message:"please post again"})
+  }else{
+    res.json({success:true, message: 'Answer posted'})
+}
+});
 });
 
 router.post('/deleteQuestion', function(req,res){
@@ -120,9 +128,9 @@ router.post('/deleteQuestion', function(req,res){
 
   connection.query(query, function(err, result){
     if(err){
-      res.json({success:false, message:"please post again"})
+      res.json({success:false, message:"please delete the question"})
     }else{
-      res.json({success:true, message: 'Answer posted'})
+      res.json({success:true, message: 'Question deleted successfully'})
   }
   });
 });
