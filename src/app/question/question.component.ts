@@ -106,7 +106,7 @@ deleteQuestion(list) {
   };
   this.service.deleteQuestion(data).then((result) => {
     if (result.success) {
-      this.snack_message = ' Answer Submitted successfully';
+      this.snack_message = ' Question deleted successfully';
     } else {
       this.snack_message = result.message;
     }
@@ -116,5 +116,4 @@ deleteQuestion(list) {
     this.viewsnack = false;
   }, 2500);
 }
-
 }

@@ -1,9 +1,9 @@
 <div class="btn-group btn-group-justified header" role="group" aria-label="...">
     <div class="btn-group" role="group">
-      <button type="button" class="btn btn-default" (click)= "getQuestion()">List Questions</button>
+      <button type="button" class="btn btn-primary" (click)= "getQuestion()">List Questions</button>
     </div>
     <div class="btn-group" role="group">
-      <button type="button" class="btn btn-default"  (click)="addQuestion()" >Add Question</button>
+      <button type="button" class="btn btn-secondary"  (click)="addQuestion()" >Add Question</button>
     </div>
     <div class="btn-group" role="group">
       <button type="button" class="btn btn-default"  (click)="getMyQuestion(userInfo.FirstName)" >My Questions</button>
@@ -19,8 +19,8 @@
               <th scope="col">Email</th>
               <th scope="col">Question</th>
               <th scope="col">Answer</th>
-              <th scope="col">Add Answer</th>
-              <th scope="col">Delete</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody *ngFor="let list of list_of_questions">
@@ -33,7 +33,7 @@
               <td>{{list.Answer}}</td>
             <td><button class="btn btn-success" (click)= "answerQuestion(list)">Modify Answer</button></td>  
               
-             <td><button class="btn btn-success" (click)= "deleteQuestion(list)" *ngIf= "userInfo.FirstName === list.FirstName">Delete question</button>
+             <td><button class="btn btn-danger" (click)= "deleteQuestion(list)" *ngIf= "userInfo.FirstName === list.FirstName">Delete question</button>
              </td>  </tr>
           </tbody>
         </table>
@@ -41,7 +41,7 @@
 
   <div class="container">
     <div class="card"  *ngIf="toAddQuestion">
-        <label for="exampleFormControlTextarea2">{{userInfo.FirstName}}</label> 
+        <label for="exampleFormControlTextarea2">Username: {{userInfo.FirstName}}</label> 
         <div class="card-body">
             <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" [(ngModel)]="question_text"></textarea>
             <button class="btn btn-default" (click)= "close()"style="float:left">Cancel</button>
@@ -51,11 +51,11 @@
   </div>
   <div class="container">
       <div class="card"  *ngIf="toAddAnswer">
-          <label for="exampleFormControlTextarea2">{{question_details.ID}}.{{question_details.Question}}</label>
+          <label for="exampleFormControlTextarea2">UserId: {{question_details.ID}} , Question is :{{question_details.Question}}</label>
           <div class="card-body">
               <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" [(ngModel)]="answer_text"></textarea>
-              <button class="btn btn-default" (click)= "close()"style="float:left">Cancel</button>
-              <button class="btn btn-default" (click)= "postAnswer()"style="float:right">Submit</button>
+              <button class="btn btn-secondary" (click)= "close()"style="float:left">Cancel</button>
+              <button class="btn btn-info" (click)= "postAnswer()"style="float:right">Submit</button>
           </div>
         </div>
     </div>
