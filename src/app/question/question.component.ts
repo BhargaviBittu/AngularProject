@@ -62,6 +62,21 @@ export class QuestionComponent implements OnInit {
     }, 2500);
   }
 
+  getMyQuestion(name) {
+    const data = { FirstName: name };
+    this.service.getMyQuestion(data).then((result) => {
+      if (result.success) {
+        this.list_of_questions = result.questionList;
+        this.snack_message = ' My Question Submitted successfully';
+      } else {
+        this.snack_message = result.message;
+      }
+    });
+    this.viewsnack = true;
+    setTimeout(() => {
+      this.viewsnack = false;
+    }, 2500);
+  }
 
   answerQuestion(question_details) {
     this.toAddAnswer = true;
@@ -84,4 +99,22 @@ export class QuestionComponent implements OnInit {
       this.viewsnack = false;
     }, 2500);
   }
+
+deleteQuestion(list) {
+  const data = {
+    ID: list.ID
+  };
+  this.service.deleteQuestion(data).then((result) => {
+    if (result.success) {
+      this.snack_message = ' Answer Submitted successfully';
+    } else {
+      this.snack_message = result.message;
+    }
+  });
+  this.viewsnack = true;
+  setTimeout(() => {
+    this.viewsnack = false;
+  }, 2500);
+}
+
 }

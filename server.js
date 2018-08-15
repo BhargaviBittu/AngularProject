@@ -90,9 +90,33 @@ router.get('/getQuestion', function(req,res){
   });
 });
 
+router.post('/getMyQuestion', function(req,res){
+  let query = "SELECT * FROM user_questionaire where FirstName = '"+req.body.FirstName+"'";
+  connection.query(query, function(err, result){ console.log(result, req.body);
+    if(err){
+      res.json({success:false, message:"please post again"})
+    }else{
+      res.json({success:true, message: 'question posted', questionList: result})
+  }
+  });
+});
+
 router.post('/postAnswer', function(req,res){
   var myDate = new Date();
   let query = "UPDATE user_questionaire SET Answer = '"+req.body.Answer+"' WHERE ID = '"+req.body.ID+"'"
+
+  connection.query(query, function(err, result){
+    if(err){
+      res.json({success:false, message:"please post again"})
+    }else{
+      res.json({success:true, message: 'Answer posted'})
+  }
+  });
+});
+
+router.post('/deleteQuestion', function(req,res){
+  var myDate = new Date();
+  let query = "DELETE FROM user_questionaire WHERE ID = '"+req.body.ID+"'"
 
   connection.query(query, function(err, result){
     if(err){

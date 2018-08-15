@@ -39,10 +39,25 @@ export class Service {
     Observable.throw(error.json().error || 'Server errorrrr')).map(res => res.json()).toPromise();
     return response;
   }
+
+  async getMyQuestion(data): Promise<any> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    const response = await this.http.post('http://localhost:3005/api/getMyQuestion', data).catch((error: any) => 
+    Observable.throw(error.json().error || 'Server errorrrr')).map(res => res.json()).toPromise();
+    return response;
+  }
   async postAnswer(data): Promise<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     const response = await this.http.post('http://localhost:3005/api/postAnswer', data).catch((error: any) => 
+    Observable.throw(error.json().error || 'Server errorrrr')).map(res => res.json()).toPromise();
+    return response;
+  }
+  async deleteQuestion(data): Promise<any> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    const response = await this.http.post('http://localhost:3005/api/deleteQuestion', data).catch((error: any) => 
     Observable.throw(error.json().error || 'Server errorrrr')).map(res => res.json()).toPromise();
     return response;
   }
