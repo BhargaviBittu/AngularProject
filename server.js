@@ -18,15 +18,14 @@ connection.connect((err) => {
   console.log('Connected!');
 });
 
-// Basic set up
+// Basic local host set up
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(cors({origin: 'http://localhost:4200'}));
 app.use('/api', router);
 
-//api
-
+//login details- user exists or not
 router.post('/login', function(req,res){
   var username= req.body.Username;
   var password = req.body.Password;
@@ -52,9 +51,7 @@ router.post('/login', function(req,res){
   }
   });
 })
-
-
-
+// Registering for new user
 router.post('/register', function(req,res){
   let query = "INSERT INTO user_credentials (FirstName, LastName, Email,Password) VALUES ('"+req.body.FirstName+"', '"+req.body.LastName+"','"+req.body.email+"','"+req.body.password+"');"
   connection.query(query, function(err, result){ 
@@ -66,6 +63,7 @@ router.post('/register', function(req,res){
   });
 });
 
+// Inserting the user questions into user_questionaire table
 router.post('/postQuestion', function(req,res){
   var myDate = new Date();
   let query = "INSERT INTO user_questionaire (FirstName, LastName, Email, Question, Answer, Posted_date) VALUES ('"+req.body.FirstName+"', '"+req.body.LastName+"','"
@@ -78,17 +76,18 @@ router.post('/postQuestion', function(req,res){
   }
   });
 });
-
+// Selecting the All user's question from the user_questionaire table
 router.get('/getQuestion', function(req,res){
   let query = "SELECT * FROM user_questionaire";
   connection.query(query, function(err, result){ 
     if(err){
       res.json({success:false, message:"please post again"})
     }else{
-      res.json({success:true, message: 'question posted', questionList: result})
+      res.json({success:true, message: 'Requested Question', questionList: result})
   }
   });
 });
+// Selecting the user answers from the answer_list table
 router.get('/getAnswers', function(req,res){
   let query = "SELECT * FROM answer_list";
   connection.query(query, function(err, result){ 
@@ -99,18 +98,18 @@ router.get('/getAnswers', function(req,res){
   }
   });
 });
-
+// Selecting the individual user's question from the user_questionaire table
 router.post('/getMyQuestion', function(req,res){
   let query = "SELECT * FROM user_questionaire where FirstName = '"+req.body.FirstName+"'";
   connection.query(query, function(err, result){ console.log(result, req.body);
     if(err){
       res.json({success:false, message:"please post again"})
     }else{
-      res.json({success:true, message: 'question posted', questionList: result})
+      res.json({success:true, message: 'Requested user question', questionList: result})
   }
   });
 });
-
+// Inserting all user answers into answer_list table
 router.post('/postAnswer', function(req,res){
   let query = "INSERT INTO answer_list (FirstName, ID, Question, Answer) VALUES ('"+req.body.FirstName+"', '"+req.body.ID+"','"+req.body.Question+"' ,'"+req.body.Answer+"');"
 connection.query(query, function(err, result){
