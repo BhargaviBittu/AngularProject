@@ -14,6 +14,7 @@
 </div>
 <!-- Table to show list of questions-->
 <div class="container" *ngIf="list_of_questions"> 
+    <label>Questions list</label>
     <table class="table table-bordered">
         <thead>
           <tr>
@@ -42,7 +43,9 @@
 </div>
 
 <!-- Table to show list of answers-->
+
 <div class="container" *ngIf="list_of_answers"> 
+    <label>Answers list</label>
   <table class="table table-bordered">
       <thead>
         <tr>
@@ -67,7 +70,7 @@
   <div class="card"  *ngIf="toAddQuestion">
       <label for="exampleFormControlTextarea2">Username: {{userInfo.FirstName}}</label> 
       <div class="card-body">
-          <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" [(ngModel)]="question_text"></textarea>
+          <textarea class="form-control rounded-0" id="exampleFormControlTextarea2"  placeholder="Please enter the question..." rows="3" [(ngModel)]="question_text"></textarea>
           <button class="btn btn-primary" (click)= "postQuestion()"style="float:right">Submit</button>
           <button class="btn btn-secondary" (click)= "close()"style="float:left">Cancel</button>
 
@@ -78,7 +81,7 @@
     <div class="card"  *ngIf="toAddAnswer">
         <label for="exampleFormControlTextarea2">Question Id: {{question_details.ID}} , Question is :{{question_details.Question}}</label>
         <div class="card-body">
-            <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" [(ngModel)]="answer_text"></textarea>
+            <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" placeholder="Please enter the answer..." rows="3" [(ngModel)]="answer_text"></textarea>
             <button class="btn btn-primary" (click)= "postAnswer()"style="float:right">Submit</button>
             <button class="btn btn-secondary" (click)= "close()"style="float:left">Cancel</button>
         </div>
